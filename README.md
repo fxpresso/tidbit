@@ -1,1 +1,2 @@
-# tidbits
+# tidbit
+Bits and Bytes of Java Tools
