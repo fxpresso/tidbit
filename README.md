@@ -1,2 +1,2 @@
 # tidbit
-Bits and Bytes of Java Tools
+### Bits and Bytes of Java Utilities
