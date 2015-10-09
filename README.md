@@ -1,2 +1,2 @@
 # tidbit
-### Bits and Bytes of Java Utilities
+#### A Bit or Byte of Java & JavaFX Nice-To-Haves
