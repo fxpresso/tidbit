@@ -120,6 +120,10 @@ public class Flyout extends Region {
      * user defined contents will no longer be visible.
      */
     public void dismiss() {
+        if(tl.getStatus() != Animation.Status.STOPPED) {
+            return;
+        }
+        
         doFlyOut(true);
     }
     
@@ -128,6 +132,10 @@ public class Flyout extends Region {
      * animation.
      */
     public void flyout() {
+        if(tl.getStatus() != Animation.Status.STOPPED) {
+            return;
+        }
+        
         if(!shownOnce) {
             clipContainer = new StackPane();
             
@@ -267,7 +275,7 @@ public class Flyout extends Region {
         
         tl.play();
         
-        flyoutShowing = !flyoutShowing;
+        flyoutShowing = !isReverse;
     }
     
     /**
