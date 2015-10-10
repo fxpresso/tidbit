@@ -20,6 +20,9 @@ import fxpresso.tidbit.ui.Flyout;
  * Demonstrates the {@link Flyout} widget.
  * 
  * You chose the fly out direction (see {@link Flyout.Side}) !!
+ * <p>
+ * Note: Test by substituting other {@link Flyout.Side}s below in the
+ * {@link #start(Stage)} method.
  * 
  * @author cogmission
  */
@@ -60,7 +63,7 @@ public class FlyoutDemo extends Application {
      * @return  a new {@link Flyout}
      */
     public Flyout createFlyout() {
-        stuffChooserTrigger = new ToggleButton("Create / Select Map");
+        stuffChooserTrigger = new ToggleButton("Create / Select Item");
         stuffChooserTrigger.setOnAction(e -> {
             if(stuffChooserTrigger.isSelected()) {
                 flyout.flyout();
@@ -94,7 +97,7 @@ public class FlyoutDemo extends Application {
             "combo"
         );
         
-        Label l = new Label("Select or enter map name:");
+        Label l = new Label("Select or enter example text:");
         l.setFont(Font.font(l.getFont().getFamily(), 10));
         l.setTextFill(Color.WHITE);
         Button add = new Button("Add");
