@@ -211,10 +211,10 @@ public class Flyout extends Region {
             if(n == Animation.Status.STOPPED) {
                 if(!flyoutShowing) {
                     popup.hide();
-                    flyOutStatus.set(Flyout.Status.COMPLETE);
+                    flyOutStatus.setValue(Flyout.Status.COMPLETE);
                 } 
             }else{
-                flyOutStatus.set(Flyout.Status.RUNNING);
+                flyOutStatus.setValue(Flyout.Status.RUNNING);
             }
         });
     }
@@ -227,7 +227,7 @@ public class Flyout extends Region {
      *          show the popup.
      */
     private void doFlyOut(boolean isReverse) {
-        flyOutStatus.set(Flyout.Status.RUNNING);
+        flyOutStatus.setValue(Flyout.Status.RUNNING);
         
         // set initial position
         switch(flyoutSide) {
