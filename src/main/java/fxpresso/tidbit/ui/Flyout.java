@@ -21,6 +21,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
 import javafx.geometry.Bounds;
@@ -55,11 +57,13 @@ import javafx.util.Pair;
  */
 public class Flyout extends Region {
     public enum Side { TOP, BOTTOM, LEFT, RIGHT }
+    public enum Status { RUNNING, COMPLETE };
     
     private Side flyoutSide = Side.BOTTOM;
     
     private Timeline tl = new Timeline();
     private DoubleProperty loc = new SimpleDoubleProperty();
+    private ReadOnlyObjectWrapper<Flyout.Status> flyOutStatus = new ReadOnlyObjectWrapper<>();
     private Interpolator interpolator = Interpolator.SPLINE(0.5, 0.1, 0.1, 0.5);
     
     private Node anchor;
@@ -110,6 +114,17 @@ public class Flyout extends Region {
      */
     public void setFlyoutSide(Side side) {
         this.flyoutSide = side;
+    }
+    
+    /**
+     * Returns a property that can be listened to or queried to 
+     * determine if the current animated operation is complete
+     * or not.
+     * 
+     * @return  a property useful for completed animation monitoring
+     */
+    public ReadOnlyObjectProperty<Flyout.Status> getFlyoutStatusProperty() {
+        return flyOutStatus.getReadOnlyProperty();
     }
     
     /**
@@ -193,8 +208,13 @@ public class Flyout extends Region {
             
         });
         tl.statusProperty().addListener((v, o, n) -> {
-            if(n ==  Animation.Status.STOPPED && !flyoutShowing) {
-                popup.hide();
+            if(n == Animation.Status.STOPPED) {
+                if(!flyoutShowing) {
+                    popup.hide();
+                    flyOutStatus.set(Flyout.Status.COMPLETE);
+                } 
+            }else{
+                flyOutStatus.set(Flyout.Status.RUNNING);
             }
         });
     }
@@ -207,6 +227,8 @@ public class Flyout extends Region {
      *          show the popup.
      */
     private void doFlyOut(boolean isReverse) {
+        flyOutStatus.set(Flyout.Status.RUNNING);
+        
         // set initial position
         switch(flyoutSide) {
             case TOP: {
