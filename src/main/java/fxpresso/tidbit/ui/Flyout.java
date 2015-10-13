@@ -211,8 +211,8 @@ public class Flyout extends Region {
             if(n == Animation.Status.STOPPED) {
                 if(!flyoutShowing) {
                     popup.hide();
-                    flyOutStatus.setValue(Flyout.Status.COMPLETE);
                 } 
+                flyOutStatus.setValue(Flyout.Status.COMPLETE);
             }else{
                 flyOutStatus.setValue(Flyout.Status.RUNNING);
             }
@@ -321,9 +321,6 @@ public class Flyout extends Region {
         popup.setY(xy.getValue());
         popup.setWidth(contentBounds.getWidth());
         popup.setHeight(contentBounds.getHeight());
-        
-        // Put focus in user's node
-        flyoutContents.requestFocus();
         
         shownOnce = true;
     }
