@@ -159,6 +159,9 @@ public class Flyout extends Region {
             
             clipContainer.getChildren().add(userNodeContainer);
             clipContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.0)");
+            clipContainer.layoutBoundsProperty().addListener((v, o, n) -> {
+                userNodeContainer.resize(n.getWidth(), n.getHeight());
+            });
             
             Scene popupScene = new Scene(clipContainer, Color.TRANSPARENT);
             popup.initStyle(StageStyle.TRANSPARENT);
@@ -174,6 +177,15 @@ public class Flyout extends Region {
         
         popup.show();
         doFlyOut(false);
+    }
+    
+    /**
+     * Returns the Pane containing the user specified component Node tree.
+     * 
+     * @return  the Pane containing the user's Node tree.
+     */
+    public Pane getFlyoutContainer() {
+        return userNodeContainer;
     }
     
     /**
