@@ -76,6 +76,9 @@ public class Flyout extends Region {
     private boolean shownOnce;
     private boolean flyoutShowing;
     
+    /** The default style of the background */
+    private String styleString = "-fx-background-color: rgba(0, 0, 0, 0.5);";
+    
     /**
      * Constructs a new {@code Flyout} using the specified "anchor"
      * as the location from which the specified "contents" will 
@@ -87,6 +90,8 @@ public class Flyout extends Region {
     public Flyout(Node anchor, Node contents) {
         this.anchor = anchor;
         this.flyoutContents = contents;
+        userNodeContainer = new Pane();
+        
         getChildren().addListener((Change<? extends Node> c) -> {
             if(getChildren().size() > 1) {
                 throw new IllegalStateException("May only add one child to a Flyout");
@@ -151,8 +156,7 @@ public class Flyout extends Region {
         if(!shownOnce) {
             clipContainer = new StackPane();
             
-            userNodeContainer = new Pane();
-            userNodeContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.3);");
+            userNodeContainer.setStyle(styleString);
             userNodeContainer.setManaged(false);
             userNodeContainer.setVisible(true);
             userNodeContainer.getChildren().add(flyoutContents);
@@ -177,6 +181,14 @@ public class Flyout extends Region {
         
         popup.show();
         doFlyOut(false);
+    }
+    
+    /**
+     * Sets the style of the flyout's background container
+     * @param s
+     */
+    public void setFlyoutStyle(String s) {
+        this.styleString = s;
     }
     
     /**
