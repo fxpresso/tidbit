@@ -63,7 +63,7 @@ public class Flyout extends Region {
     
     private Timeline tl = new Timeline();
     private DoubleProperty loc = new SimpleDoubleProperty();
-    private ReadOnlyObjectWrapper<Flyout.Status> flyOutStatus = new ReadOnlyObjectWrapper<>();
+    private ReadOnlyObjectWrapper<Flyout.Status> flyOutStatus = new ReadOnlyObjectWrapper<>(Status.COMPLETE);
     private Interpolator interpolator = Interpolator.SPLINE(0.5, 0.1, 0.1, 0.5);
     
     private Node anchor;
@@ -137,7 +137,7 @@ public class Flyout extends Region {
      * user defined contents will no longer be visible.
      */
     public void dismiss() {
-        if(tl.getStatus() != Animation.Status.STOPPED) {
+        if(tl.getStatus() != Animation.Status.STOPPED || !flyoutShowing) {
             return;
         }
         
@@ -181,6 +181,14 @@ public class Flyout extends Region {
         
         popup.show();
         doFlyOut(false);
+    }
+    
+    /**
+     * Returns the Stage used as the popup for the user node container.
+     * @return
+     */
+    public Stage getPopup() {
+        return popup;
     }
     
     /**
