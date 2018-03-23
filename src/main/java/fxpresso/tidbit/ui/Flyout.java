@@ -42,7 +42,7 @@ import javafx.util.Pair;
 /**
  * <p>
  * Slides a user defined component into and out of the view
- * starting from the bottom of a user defined anchor node.
+ * starting from any side (see {@link #Side}) of a user defined anchor node.
  * </p><p>
  * This {@code Flyout} consists of two parts. 
  * <ol>
